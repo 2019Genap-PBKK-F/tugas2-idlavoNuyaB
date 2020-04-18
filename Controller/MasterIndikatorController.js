@@ -31,7 +31,7 @@ var executeQuery = function(res,query,cek,parameters){
 
 var routes = function(){
   router.route('/').get(function(req,res){
-    var query = 'Select * from DataDasar';
+    var query = "select * from MasterIndikator"
     var cek = 0;
     var parameters;
     executeQuery(res,query,cek,parameters);
@@ -42,36 +42,48 @@ var routes = function(){
     tgl.getTime();
     tgl.setDate(31);
     tgl.setMonth(12);
+    console.log(req.body.deskripsi);
     var parameters = [
-      { name: 'nama', sqltype: sql.VarChar(255), value: req.body.nama},
-      { name: 'expired_date', sqltype: sql.DateTime, value: tgl},
+        { name: 'id_penyebut', sqltype: sql.Int, value: req.body.id_penyebut },
+        { name: 'id_pembilang', sqltype: sql.Int, value: req.body.id_pembilang },
+        { name: 'nama', sqltype: sql.VarChar, value: req.body.nama },
+        { name: 'deskripsi', sqltype: sql.VarChar, value: req.body.deskripsi },
+        { name: 'default_bobot', sqltype: sql.Float, value: req.body.default_bobot },
+        { name: 'expired_date', sqltype: sql.DateTime, value: tgl }
     ];
-    var query = 'INSERT INTO DataDasar(nama, create_date, last_update, expired_date) VALUES (@nama, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, @expired_date)';
+    var query = "insert into MasterIndikator( id_penyebut, id_pembilang, nama, deskripsi, default_bobot, create_date, last_update, expired_date ) "
+    + "values( @id_penyebut, @id_pembilang, @nama, @deskripsi, @default_bobot, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, @expired_date)";
     executeQuery(res,query,cek,parameters);
   });
   router.route('/nama').get(function(req,res){
-    var cek = 2;
+    var query = 'Select id, nama as name from MasterIndikator';
+    var cek = 0;
     var parameters;
-    var query = "Select id, nama as name from DataDasar";
     executeQuery(res,query,cek,parameters);
   });
   router.route('/:id').get(function(req,res){
     var cek = 2;
     var parameters;
-    var query = "Select * from DataDasar WHERE id = " + req.params.id;
+    var query = "Select * from MasterIndikator WHERE id = " + req.params.id;
     executeQuery(res,query,cek,parameters);
   });
   router.route('/:id').put(function(req,res){
     var cek = 1;
     var parameters = [
-      { name: 'id', sqltype: sql.Int, value: req.params.id},
-      { name: 'nama', sqltype: sql.VarChar(255), value: req.body.nama}
+        { name: 'id', sqltype: sql.Int, value: req.body.id },
+        { name: 'id_penyebut', sqltype: sql.Int, value: req.body.id_penyebut },
+        { name: 'id_pembilang', sqltype: sql.Int, value: req.body.id_pembilang },
+        { name: 'nama', sqltype: sql.VarChar, value: req.body.nama },
+        { name: 'deskripsi', sqltype: sql.VarChar, value: req.body.deskripsi },
+        { name: 'default_bobot', sqltype: sql.Float, value: req.body.default_bobot }
     ];
-    var query = "UPDATE DataDasar SET nama = @nama, last_update = CURRENT_TIMESTAMP WHERE id = @id";
+    console.log(req.body.deskripsi);
+    var query = "update MasterIndikator set id_penyebut = @id_penyebut, id_pembilang = @id_pembilang, nama = @nama, deskripsi = @deskripsi, "
+    + "default_bobot = @default_bobot, last_update = CURRENT_TIMESTAMP where id = @id";
     executeQuery(res,query,cek,parameters);
   });
   router.route('/:id').delete(function(req,res){
-    var query = "DELETE FROM DataDasar WHERE Id=" + req.params.id;
+    var query = "DELETE FROM MasterIndikator WHERE Id=" + req.params.id;
     var parameters;
     var cek = 2;
     executeQuery (res, query,cek,parameters)

@@ -31,47 +31,54 @@ var executeQuery = function(res,query,cek,parameters){
 
 var routes = function(){
   router.route('/').get(function(req,res){
-    var query = 'Select * from CapaianUnit';
+    var query = 'Select * from Capaian_Unit';
     var cek = 0;
     var parameters;
     executeQuery(res,query,cek,parameters);
   });
   router.route('/').post(function(req,res){
     var cek = 1;
-    if(req.body.Unit_id == undefined){
-      req.body.Unit_id = 0
-    }
-    console.log(req.body.Unit_id)
+    var tgl = new Date();
+    tgl.getTime();
     var parameters = [
-      { name: 'DataDasar_id', sqltype: sql.Int, value: req.body.DataDasar_id},
-      { name: 'Unit_id', sqltype: sql.Int, value: req.body.Unit_id},
-      { name: 'waktu', sqltype: sql.DateTime, value: req.body.waktu},
+      { name: 'id_satker', sqltype: sql.UniqueIdentifier, value: req.body.id_satker},
+      { name: 'id_datadasar', sqltype: sql.Int, value: req.body.id_datadasar},
+      { name: 'waktu', sqltype: sql.DateTime, value: tgl},
       { name: 'capaian', sqltype: sql.Float, value: req.body.capaian}
     ];
-    var query = 'INSERT INTO CapaianUnit(DataDasar_id,Unit_id,waktu,capaian) VALUES (@DataDasar_id,@Unit_id,@waktu,@capaian)';
+    var query = 'INSERT INTO Capaian_Unit(id_satker,id_datadasar,waktu,capaian) VALUES (@id_satker,@id_datadasar,@waktu,@capaian)';
     executeQuery(res,query,cek,parameters);
   });
   router.route('/:idd:idu').get(function(req,res){
-    var cek = 2;
-    var parameters;
-    var query = "Select * from CapaianUnit WHERE DataDasar_id = " + req.params.idd + "and Unit_id =" + req.params.idu;
-    executeQuery(res,query,cek,parameters);
-  });
-  router.route('/:DataDasar_id:Unit_id').put(function(req,res){
     var cek = 1;
     var parameters = [
-      { name: 'DataDasar_id', sqltype: sql.Int, value: req.body.DataDasar_id},
-      { name: 'Unit_id', sqltype: sql.Int, value: req.body.Unit_id},
-      { name: 'waktu', sqltype: sql.DateTime, value: req.body.waktu},
-      { name: 'capaian', sqltype: sql.Float, value: req.body.capaian}
+      { name: 'id_satker', sqltype: sql.UniqueIdentifier, value: req.params.idu},
+      { name: 'id_datadasar', sqltype: sql.Int, value: req.params.idd},
     ];
-    var query = "UPDATE CapaianUnit SET DataDasar_id = @DataDasar_id, Unit_id = @Unit_id, waktu = @waktu, capaian = @capaian WHERE DataDasar_id = " + req.params.DataDasar_id + "and Unit_id =" + req.params.Unit_id;
+    var query = "Select * from Capaian_Unit WHERE id_satker = @id_satker and id_datadasar = @id_datadasar";
+    executeQuery(res,query,cek,parameters);
+  });
+  router.route('/:id_datadasar:id_satker').put(function(req,res){
+    var cek = 1;
+    var parameters = [
+      { name: 'id_satker', sqltype: sql.UniqueIdentifier, value: req.body.id_satker},
+      { name: 'id_datadasar', sqltype: sql.Int, value: req.body.id_datadasar},
+      { name: 'capaian', sqltype: sql.Float, value: req.body.capaian},
+      { name: 'id_satkea', sqltype: sql.UniqueIdentifier, value: req.params.id_satker},
+      { name: 'id_datadasaa', sqltype: sql.Int, value: req.params.id_datadasar}
+    ];
+    var query = "UPDATE Capaian_Unit SET id_satker = @id_satker, id_datadasar = @id_datadasar, waktu = CURRENT_TIMESTAMP, capaian = @capaian WHERE id_satker = @id_satkea and id_datadasar = @id_datadasaa";
     executeQuery(res,query,cek,parameters);
   });
   router.route('/:idd:idu').delete(function(req,res){
-    var query = "DELETE FROM CapaianUnit WHERE DataDasar_id = " + req.params.idd + "and Unit_id =" + req.params.idu;
+    console.log(req.params.idd + ' ' + req.params.idu)
+    var parameters = [
+      { name: 'id_satker', sqltype: sql.UniqueIdentifier, value: req.params.idu},
+      { name: 'id_datadasar', sqltype: sql.Int, value: req.params.idd},
+    ];
+    var query = "DELETE FROM Capaian_Unit WHERE id_satker = @id_satker and id_datadasar = @id_datadasar";
     var parameters;
-    var cek = 2;
+    var cek = 1;
     executeQuery (res, query,cek,parameters)
   });
   return router

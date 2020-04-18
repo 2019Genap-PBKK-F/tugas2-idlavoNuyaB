@@ -31,7 +31,7 @@ var executeQuery = function(res,query,cek,parameters){
 
 var routes = function(){
   router.route('/').get(function(req,res){
-    var query = 'Select id,nama as name from KategoriUnit';
+    var query = 'Select * from Periode';
     var cek = 0;
     var parameters;
     executeQuery(res,query,cek,parameters);
@@ -39,28 +39,36 @@ var routes = function(){
   router.route('/').post(function(req,res){
     var cek = 1;
     var parameters = [
-      { name: 'nama', sqltype: sql.VarChar(50), value: req.body.nama},
+        { name: 'id', sqltype: sql.Numeric, value: req.body.id },
+        { name: 'nama', sqltype: sql.VarChar, value: req.body.nama },
     ];
-    var query = 'INSERT INTO KategoriUnit(nama) VALUES (@nama)';
+    var query = "insert into Periode ( id, nama, create_date, last_update ) values ( @id, @nama, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)"
+    executeQuery(res,query,cek,parameters);
+  });
+  router.route('/nama').get(function(req,res){
+    var query = 'Select id, nama as name from Periode';
+    var cek = 0;
+    var parameters;
     executeQuery(res,query,cek,parameters);
   });
   router.route('/:id').get(function(req,res){
     var cek = 2;
     var parameters;
-    var query = "Select * from KategoriUnit WHERE id = " + req.params.id;
+    var query = "Select * from Periode WHERE id = " + req.params.id;
     executeQuery(res,query,cek,parameters);
   });
   router.route('/:id').put(function(req,res){
     var cek = 1;
+    console.log(req.params.id);
     var parameters = [
-      { name: 'id', sqltype: sql.Int, value: req.params.id},
-      { name: 'nama', sqltype: sql.VarChar(50), value: req.body.nama}
+      { name: 'id', sqltype: sql.Numeric, value: req.body.id },
+      { name: 'nama', sqltype: sql.VarChar, value: req.body.nama },
     ];
-    var query = "UPDATE KategoriUnit SET nama = @nama WHERE id = @id";
+    var query = "update Periode set id = @id, nama = @nama, last_update = CURRENT_TIMESTAMP where id = " + req.params.id; 
     executeQuery(res,query,cek,parameters);
   });
   router.route('/:id').delete(function(req,res){
-    var query = "DELETE FROM KategoriUnit WHERE Id=" + req.params.id;
+    var query = "DELETE FROM Periode WHERE Id=" + req.params.id;
     var parameters;
     var cek = 2;
     executeQuery (res, query,cek,parameters)

@@ -31,38 +31,48 @@ var executeQuery = function(res,query,cek,parameters){
 
 var routes = function(){
   router.route('/').get(function(req,res){
-    var query = 'Select * from Units where id != 0';
+    var query = 'Select * from JenisSatker';
+    var cek = 0;
+    var parameters;
+    executeQuery(res,query,cek,parameters);
+  });
+  router.route('/nama').get(function(req,res){
+    var query = 'Select id, nama as name from JenisSatker';
     var cek = 0;
     var parameters;
     executeQuery(res,query,cek,parameters);
   });
   router.route('/').post(function(req,res){
     var cek = 1;
+    var tgl = new Date();
+    tgl.getTime();
+    tgl.setDate(31);
+    tgl.setMonth(12);
     var parameters = [
-      { name: 'nama', sqltype: sql.VarChar(50), value: req.body.nama},
-      { name: 'KategoriUnit_id', sqltype: sql.Int, value: req.body.KategoriUnit_id},
+      { name: 'id', sqltype: sql.Numeric, value: req.body.id },
+      { name: 'nama', sqltype: sql.VarChar, value: req.body.nama },
+      { name: 'expired_date', sqltype: sql.DateTime, value: tgl }
     ];
-    var query = 'INSERT INTO Units(nama,KategoriUnit_id) VALUES (@nama,@KategoriUnit_id)';
+    var query = 'insert into JenisSatker ( nama, create_date, last_update, expired_date ) values( @nama, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, @expired_date )'
     executeQuery(res,query,cek,parameters);
   });
   router.route('/:id').get(function(req,res){
     var cek = 2;
     var parameters;
-    var query = "Select * from Units WHERE id = " + req.params.id;
+    var query = "Select * from JenisSatker WHERE id = " + req.params.id;
     executeQuery(res,query,cek,parameters);
   });
   router.route('/:id').put(function(req,res){
     var cek = 1;
     var parameters = [
-      { name: 'id', sqltype: sql.Int, value: req.params.id},
-      { name: 'nama', sqltype: sql.VarChar(50), value: req.body.nama},
-      { name: 'KategoriUnit_id', sqltype:sql.Int, value: req.body.KategoriUnit_id}
+      { name: 'id', sqltype: sql.Numeric, value: req.body.id },
+      { name: 'nama', sqltype: sql.VarChar, value: req.body.nama },
     ];
-    var query = "UPDATE Units SET nama = @nama, KategoriUnit_id = @KategoriUnit_id WHERE id = @id";
+    var query = "update JenisSatker set nama = @nama, last_update = CURRENT_TIMESTAMP where id = @id" 
     executeQuery(res,query,cek,parameters);
   });
   router.route('/:id').delete(function(req,res){
-    var query = "DELETE FROM Units WHERE Id=" + req.params.id;
+    var query = "DELETE FROM JenisSatker WHERE Id=" + req.params.id;
     var parameters;
     var cek = 2;
     executeQuery (res, query,cek,parameters)
