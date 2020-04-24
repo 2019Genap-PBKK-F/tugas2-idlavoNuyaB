@@ -44,6 +44,7 @@ var routes = function(){
     tgl.setMonth(12);
     console.log(req.body.deskripsi);
     var parameters = [
+        { name: 'id_aspek', sqltype: sql.Int, value: req.body.id_aspek },
         { name: 'id_penyebut', sqltype: sql.Int, value: req.body.id_penyebut },
         { name: 'id_pembilang', sqltype: sql.Int, value: req.body.id_pembilang },
         { name: 'nama', sqltype: sql.VarChar, value: req.body.nama },
@@ -51,8 +52,8 @@ var routes = function(){
         { name: 'default_bobot', sqltype: sql.Float, value: req.body.default_bobot },
         { name: 'expired_date', sqltype: sql.DateTime, value: tgl }
     ];
-    var query = "insert into MasterIndikator( id_penyebut, id_pembilang, nama, deskripsi, default_bobot, create_date, last_update, expired_date ) "
-    + "values( @id_penyebut, @id_pembilang, @nama, @deskripsi, @default_bobot, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, @expired_date)";
+    var query = "insert into MasterIndikator( id_aspek, id_penyebut, id_pembilang, nama, deskripsi, default_bobot, create_date, last_update, expired_date ) "
+              + "values( @id_aspek, @id_penyebut, @id_pembilang, @nama, @deskripsi, @default_bobot, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, (CURRENT_TIMESTAMP+365) )"
     executeQuery(res,query,cek,parameters);
   });
   router.route('/nama').get(function(req,res){
@@ -71,6 +72,7 @@ var routes = function(){
     var cek = 1;
     var parameters = [
         { name: 'id', sqltype: sql.Int, value: req.body.id },
+        { name: 'id_aspek', sqltype: sql.Int, value: req.body.id_aspek },
         { name: 'id_penyebut', sqltype: sql.Int, value: req.body.id_penyebut },
         { name: 'id_pembilang', sqltype: sql.Int, value: req.body.id_pembilang },
         { name: 'nama', sqltype: sql.VarChar, value: req.body.nama },
@@ -78,8 +80,8 @@ var routes = function(){
         { name: 'default_bobot', sqltype: sql.Float, value: req.body.default_bobot }
     ];
     console.log(req.body.deskripsi);
-    var query = "update MasterIndikator set id_penyebut = @id_penyebut, id_pembilang = @id_pembilang, nama = @nama, deskripsi = @deskripsi, "
-    + "default_bobot = @default_bobot, last_update = CURRENT_TIMESTAMP where id = @id";
+    var query = "update MasterIndikator set id_aspek = @id_aspek, id_penyebut = @id_penyebut, id_pembilang = @id_pembilang, nama = @nama, deskripsi = @deskripsi, "
+              + "default_bobot = @default_bobot, last_update = CURRENT_TIMESTAMP where id = @id"
     executeQuery(res,query,cek,parameters);
   });
   router.route('/:id').delete(function(req,res){

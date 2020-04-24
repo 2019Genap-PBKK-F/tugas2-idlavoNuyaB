@@ -30,50 +30,50 @@ var executeQuery = function(res,query,cek,parameters){
 }
 
 var routes = function(){
-    router.route('/').get(function(req,res){
-      var query = "select * from Aspek";
-      var cek = 0;
-      var parameters;
-      executeQuery(res,query,cek,parameters);
-    });
-    router.route('/').post(function(req,res){
-      var cek = 1;
-      var parameters = [
-        { name: 'id', sqltype: sql.Int, value: req.body.id },
-        { name: 'aspek', sqltype: sql.VarChar, value: req.body.aspek },
-        { name: 'komponen_aspek', sqltype: sql.VarChar, value: req.body.komponenAspek }
-      ];
-      var query = "insert into Aspek( aspek, komponen_aspek ) values ( @aspek, @komponen_aspek )"
-      executeQuery(res,query,cek,parameters);
-    });
-    router.route('/nama').get(function(req,res){
-      var cek = 2;
-      var parameters;
-      var query = "select id, aspek as name from Aspek"
-      executeQuery(res,query,cek,parameters);
-    });
-    router.route('/:id').get(function(req,res){
-      var cek = 2;
-      var parameters;
-      var query = "Select * from Aspek WHERE id = " + req.params.id;
-      executeQuery(res,query,cek,parameters);
-    });
-    router.route('/:id').put(function(req,res){
-      var cek = 1;
-      var parameters = [
-        { name: 'id', sqltype: sql.Int, value: req.params.id },
-        { name: 'aspek', sqltype: sql.VarChar, value: req.body.aspek },
-        { name: 'komponen_aspek', sqltype: sql.VarChar, value: req.body.komponenAspek }
-      ];
-      var query = "update Aspek set aspek = @aspek, komponen_aspek = @komponen_aspek where id = @id" 
-      executeQuery(res,query,cek,parameters);
-    });
-    router.route('/:id').delete(function(req,res){
-      var query = "DELETE FROM Aspek WHERE Id=" + req.params.id;
-      var parameters;
-      var cek = 2;
-      executeQuery (res, query,cek,parameters)
-    });
-    return router
-  };
+  router.route('/').get(function(req,res){
+    var query = "select * from Aspek";
+    var cek = 0;
+    var parameters;
+    executeQuery(res,query,cek,parameters);
+  });
+  router.route('/').post(function(req,res){
+    var cek = 1;
+    var parameters = [
+      { name: 'id', sqltype: sql.Int, value: req.body.id },
+      { name: 'aspek', sqltype: sql.VarChar, value: req.body.aspek },
+      { name: 'komponen_aspek', sqltype: sql.VarChar, value: req.body.komponenAspek }
+    ];
+    var query = "insert into Aspek( aspek, komponen_aspek ) values ( @aspek, @komponen_aspek )"
+    executeQuery(res,query,cek,parameters);
+  });
+  router.route('/nama').get(function(req,res){
+    var cek = 2;
+    var parameters;
+    var query = "select id, aspek as name from Aspek"
+    executeQuery(res,query,cek,parameters);
+  });
+  router.route('/:id').get(function(req,res){
+    var cek = 2;
+    var parameters;
+    var query = "Select * from Aspek WHERE id = " + req.params.id;
+    executeQuery(res,query,cek,parameters);
+  });
+  router.route('/:id').put(function(req,res){
+    var cek = 1;
+    var parameters = [
+      { name: 'id', sqltype: sql.Int, value: req.params.id },
+      { name: 'aspek', sqltype: sql.VarChar, value: req.body.aspek },
+      { name: 'komponen_aspek', sqltype: sql.VarChar, value: req.body.komponenAspek }
+    ];
+    var query = "update Aspek set aspek = @aspek, komponen_aspek = @komponen_aspek where id = @id" 
+    executeQuery(res,query,cek,parameters);
+  });
+  router.route('/:id').delete(function(req,res){
+    var query = "DELETE FROM Aspek WHERE Id=" + req.params.id;
+    var parameters;
+    var cek = 2;
+    executeQuery (res, query,cek,parameters)
+  });
+  return router
+};
 module.exports = routes; 
