@@ -3,13 +3,14 @@ var app = express();
 var http = require('http');
 var datadasarController = require("./Controller/DataDasarController")(); 
 var indikatorSatkerController = require("./Controller/IndikatorSatuanKerjaController")(); 
-var indikatorSatker_logController = require("./Controller/IndikatorSatuanKerja_LogController")()
-var indikatorPeriodeController = require("./Controller/IndikatorPeriodeController")()
-var periodeController = require("./Controller/PeriodeController")()
-var masterindikatorController = require("./Controller/MasterIndikatorController")()
-var jenisSatkerController = require("./Controller/JenisSatkerController")()
-var SatkerController = require("./Controller/SatuanKerjaController")()
+var indikatorSatker_logController = require("./Controller/IndikatorSatuanKerja_LogController")();
+var indikatorPeriodeController = require("./Controller/IndikatorPeriodeController")();
+var periodeController = require("./Controller/PeriodeController")();
+var masterindikatorController = require("./Controller/MasterIndikatorController")();
+var jenisSatkerController = require("./Controller/JenisSatkerController")();
+var SatkerController = require("./Controller/SatuanKerjaController")();
 var capaianunitController = require("./Controller/CapaianUnitController")();
+var aspekController = require("./Controller/AspekController")();
 const hostname = '10.199.14.46';
 const port = 8017;
 
@@ -25,15 +26,16 @@ app.use((req, res, next) => {
 });
 
 // controller
-app.use('/api/datadasar',datadasarController)
-app.use('/api/indikatorsatker',indikatorSatkerController)
-app.use('/api/indikatorperiode',indikatorPeriodeController)
-app.use('/api/indikatorsatkerlog',indikatorSatker_logController)
-app.use('/api/periode',periodeController)
-app.use('/api/masterindikator',masterindikatorController)
-app.use('/api/jenissatker',jenisSatkerController)
-app.use('/api/satker',SatkerController)
-app.use('/api/capaianunit',capaianunitController)
+app.use('/api/datadasar',datadasarController);
+app.use('/api/indikatorsatker',indikatorSatkerController);
+app.use('/api/indikatorperiode',indikatorPeriodeController);
+app.use('/api/indikatorsatkerlog',indikatorSatker_logController);
+app.use('/api/periode',periodeController);
+app.use('/api/masterindikator',masterindikatorController);
+app.use('/api/jenissatker',jenisSatkerController);
+app.use('/api/satker',SatkerController);
+app.use('/api/capaianunit',capaianunitController);
+app.use('/api/aspek',aspekController);
 
 var httpServer = http.createServer(app);
 httpServer.listen(port,hostname);
