@@ -44,17 +44,20 @@ var routes = function(){
   });
   router.route('/').post(function(req,res){
     var cek = 1;
+    var tgl = new Date();
+    tgl.getTime();
+    tgl.setDate(31);
+    tgl.setMonth(12);
     var parameters = [
-      { name: 'id', sqltype: sql.UniqueIdentifier, value: req.body.id },
       { name: 'id_jns_satker', sqltype: sql.Numeric, value: req.body.id_jns_satker },
       { name: 'id_induk_satker', sqltype: sql.UniqueIdentifier, value: req.body.id_induk_satker },
       { name: 'level_unit', sqltype: sql.Int, value: req.body.level_unit },
       { name: 'nama', sqltype: sql.VarChar, value: req.body.nama },
       { name: 'email', sqltype: sql.VarChar, value: req.body.email },
-      { name: 'expired_date', sqltype: sql.DateTime, value: req.body.expired_date }
+      { name: 'expired_date', sqltype: sql.DateTime, value: tgl }
     ];
     var query = "insert into SatuanKerja( id, nama, level_unit, id_induk_satker, id_jns_satker, email, create_date, last_update, expired_date)" +
-              "values( @id, @nama, @level_unit, @id_induk_satker, @id_jns_satker, @email, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, @expired_date)"
+              "values( NEWID(), @nama, @level_unit, @id_induk_satker, @id_jns_satker, @email, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, @expired_date)"
     executeQuery(res,query,cek,parameters);
   });
   router.route('/:id').get(function(req,res){
@@ -68,10 +71,6 @@ var routes = function(){
   });
   router.route('/:id').put(function(req,res){
     var cek = 1;
-    var tgl = new Date();
-    tgl.getTime();
-    tgl.setDate(31);
-    tgl.setMonth(12);
     var parameters = [
       { name: 'id', sqltype: sql.UniqueIdentifier, value: req.body.id },
       { name: 'id_jns_satker', sqltype: sql.Numeric, value: req.body.id_jns_satker },
@@ -79,7 +78,6 @@ var routes = function(){
       { name: 'level_unit', sqltype: sql.Int, value: req.body.level_unit },
       { name: 'nama', sqltype: sql.VarChar, value: req.body.nama },
       { name: 'email', sqltype: sql.VarChar, value: req.body.email },
-      { name: 'expired_date', sqltype: sql.DateTime, value: tgl }
     ];
     var query = "update SatuanKerja set id_jns_satker = @id_jns_satker, level_unit = @level_unit, id_induk_satker = @id_induk_satker, nama = @nama, email = @email, last_update = CURRENT_TIMESTAMP " +
     "where id = @id"
