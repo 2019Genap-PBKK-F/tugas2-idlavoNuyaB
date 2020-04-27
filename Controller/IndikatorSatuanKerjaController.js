@@ -46,16 +46,8 @@ var routes = function(){
         { name: 'target', sqltype: sql.Float, value: req.body.target },
         { name: 'capaian', sqltype: sql.Float, value: req.body.capaian }
     ];
-    var param = [
-      { name: 'id_periode', sqltype: sql.Numeric, value: req.body.id_periode },
-      { name: 'id_master', sqltype: sql.Int, value: req.body.id_master },
-      { name: 'id_satker', sqltype: sql.UniqueIdentifier, value: req.body.id_satker },
-      { name: 'capaian', sqltype: sql.Float, value: req.body.capaian }
-  ];
     var query = "insert into Indikator_SatuanKerja (id_periode, id_master, id_satker, bobot, target, capaian, last_update) values( @id_periode, @id_master, @id_satker, @bobot, @target, @capaian, CURRENT_TIMESTAMP)"
-    var query2 = "insert into Indikator_SatuanKerja_Log (id_periode, id_master, id_satker, capaian, create_date) values( @id_periode, @id_master, @id_satker, @capaian, CURRENT_TIMESTAMP)"
     executeQuery(res,query,cek,parameters);
-    executeQuery(res,query2,cek,param)
   });
   router.route('/:idd/:id/:idm').get(function(req,res){
     var cek = 2;
@@ -77,7 +69,6 @@ var routes = function(){
         { name: 'id_satkea', sqltype: sql.UniqueIdentifier, value: req.params.id_satker },
     ];
     var query = "update Indikator_SatuanKerja set id_periode = @id_periode, id_master = @id_master, id_satker = @id_satker, bobot = @bobot, target = @target, capaian = @capaian, last_update = CURRENT_TIMESTAMP where (id_periode = @id_perioda and id_master = @id_mastea) and (id_satker = @id_satkea)";
-    // var query2 = "update Indikator_SatuanKerja_Log set id_periode = @id_periode, id_master = @id_master, id_satker = @id_satker, capaian = @capaian where (id_periode = @id_perioda and id_master = @id_mastea) and (id_satker = @id_satkea)";
     executeQuery(res,query,cek,parameters);
   });
   router.route('/:id/:idd/:idm').delete(function(req,res){
