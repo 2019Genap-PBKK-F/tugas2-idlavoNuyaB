@@ -21,7 +21,7 @@ var executeQuery = function(res,query){
 
 var routes = function(){
   router.route('/').get(function(req,res){
-    var query = 'Select * from dosen';
+    var query = 'Select * from publikasi';
     executeQuery(res,query);
   });
   return router
