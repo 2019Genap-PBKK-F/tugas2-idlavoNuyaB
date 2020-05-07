@@ -11,6 +11,10 @@ var jenisSatkerController = require("./Controller/JenisSatkerController")();
 var SatkerController = require("./Controller/SatuanKerjaController")();
 var capaianunitController = require("./Controller/CapaianUnitController")();
 var aspekController = require("./Controller/AspekController")();
+var dosenController = require("./Controller/DosenController")();
+var abmasController = require("./Controller/AbmasController")();
+var penelitianController = require("./Controller/PenelitianController")();
+var publikasiController = require("./Controller/PublikasiController")();
 const hostname = '10.199.14.46';
 const port = 8017;
 
@@ -36,6 +40,10 @@ app.use('/api/jenissatker',jenisSatkerController);
 app.use('/api/satker',SatkerController);
 app.use('/api/capaianunit',capaianunitController);
 app.use('/api/aspek',aspekController);
+app.use('/api/dosen',dosenController);
+app.use('/api/abmas',abmasController);
+app.use('/api/penelitian',penelitianController);
+app.use('/api/publikasi',publikasiController);
 
 var httpServer = http.createServer(app);
 httpServer.listen(port,hostname);
