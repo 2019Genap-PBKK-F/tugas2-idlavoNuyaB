@@ -15,6 +15,7 @@ var dosenController = require("./Controller/DosenController")();
 var abmasController = require("./Controller/AbmasController")();
 var penelitianController = require("./Controller/PenelitianController")();
 var publikasiController = require("./Controller/PublikasiController")();
+var loginController = require("./Controller/LoginController")();
 const hostname = '10.199.14.46';
 const port = 8017;
 
@@ -44,6 +45,7 @@ app.use('/api/dosen',dosenController);
 app.use('/api/abmas',abmasController);
 app.use('/api/penelitian',penelitianController);
 app.use('/api/publikasi',publikasiController);
+app.use('/api/login',loginController);
 
 var httpServer = http.createServer(app);
 httpServer.listen(port,hostname);
