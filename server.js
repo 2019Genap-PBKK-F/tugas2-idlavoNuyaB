@@ -16,6 +16,7 @@ var abmasController = require("./Controller/AbmasController")();
 var penelitianController = require("./Controller/PenelitianController")();
 var publikasiController = require("./Controller/PublikasiController")();
 var loginController = require("./Controller/LoginController")();
+var konkinController = require("./Controller/KonkinController")();
 const hostname = '10.199.14.46';
 const port = 8017;
 
@@ -46,6 +47,7 @@ app.use('/api/abmas',abmasController);
 app.use('/api/penelitian',penelitianController);
 app.use('/api/publikasi',publikasiController);
 app.use('/api/login',loginController);
+app.use('/api/konkin',konkinController);
 
 var httpServer = http.createServer(app);
 httpServer.listen(port,hostname);
