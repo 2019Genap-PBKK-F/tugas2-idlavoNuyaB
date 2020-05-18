@@ -42,6 +42,12 @@ var routes = function(){
     var parameters;
     executeQuery(res,query,cek,parameters);
   });
+  router.route('/namadropdown').get(function(req,res){
+    var query = "Select id, nama as name from SatuanKerja where nama like 'Departemen%' or nama like 'Fakultas%'";
+    var cek = 0;
+    var parameters;
+    executeQuery(res,query,cek,parameters);
+  });
   router.route('/').post(function(req,res){
     var cek = 1;
     var tgl = new Date();
