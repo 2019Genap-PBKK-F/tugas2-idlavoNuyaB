@@ -46,7 +46,7 @@ var executeQuery = function(req,res,query,cek,parameters){
 
 var routes = function(){
   router.route('/').get(function(req,res){
-    var query = 'Select id, email as username, email as password from SatuanKerja';
+    var query = 'Select id, email as username, email as password, id_induk_satker from SatuanKerja';
     executeQuery(0,res,query,0,0);
   });
   router.route('/').post(function(req,res){
@@ -54,7 +54,7 @@ var routes = function(){
         { name: 'username', sqltype: sql.VarChar(255), value: req.body.username},
         { name: 'password', sqltype: sql.VarChar(255), value: req.body.password}
     ];
-    var query = "Select id, email as username, email as password from SatuanKerja where email = @username";
+    var query = "Select id, email as username, email as password, id_induk_satker from SatuanKerja where email = @username";
     executeQuery(req,res,query,1,parameters);
   });
   return router
