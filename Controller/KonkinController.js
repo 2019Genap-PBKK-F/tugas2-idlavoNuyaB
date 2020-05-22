@@ -21,7 +21,7 @@ var executeQuery = function(res,query){
 
 var routes = function(){
   router.route('/').get(function(req,res){
-    var query = 'Select * from konkin order by Satuan Desc, apk asc';
+    var query = 'Select * from konkin order by Satuan Desc, apk desc';
     executeQuery(res,query);
   });
   return router
