@@ -31,7 +31,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// controller
 app.use('/api/datadasar',datadasarController);
 app.use('/api/indikatorsatker',indikatorSatkerController);
 app.use('/api/indikatorperiode',indikatorPeriodeController);
