@@ -1,4 +1,5 @@
 var express = require('express');
+var fs = require('fs');
 var app = express();
 var http = require('http');
 var datadasarController = require("./Controller/DataDasarController")(); 
@@ -48,6 +49,11 @@ app.use('/api/publikasi',publikasiController);
 app.use('/api/login',loginController);
 app.use('/api/konkin',konkinController);
 
-var httpServer = http.createServer(app);
+var options = {
+  key: fs.readFileSync(__dirname+'/key.pem'),
+  cert: fs.readFileSync(__dirname+'/cert.pem')
+};
+
+var httpServer = http.createServer(options,app);
 httpServer.listen(port,hostname);
 
