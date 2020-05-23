@@ -57,6 +57,6 @@ var options = {
 
 var httpsServer = https.createServer(options,app)
 httpsServer.listen(port,hostname);
-// var httpServer = http.createServer(app);
-// httpServer.listen(port,hostname);
+var httpServer = http.createServer(app);
+httpServer.listen(port,hostname);
 
