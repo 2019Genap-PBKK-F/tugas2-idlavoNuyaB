@@ -51,7 +51,7 @@ app.use('/api/login',loginController);
 app.use('/api/konkin',konkinController);
 
 var options = {
-  key: fs.readFileSync(__dirname+'/server,key'),
+  key: fs.readFileSync(__dirname+'/server.key'),
   cert: fs.readFileSync(__dirname+'/server.crt')
 };
 
