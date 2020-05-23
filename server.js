@@ -1,7 +1,6 @@
 var express = require('express');
-var fs = require('fs');
 var app = express();
-var https = require('https');
+var http = require('http');
 var datadasarController = require("./Controller/DataDasarController")(); 
 var indikatorSatkerController = require("./Controller/IndikatorSatuanKerjaController")(); 
 var indikatorSatker_logController = require("./Controller/IndikatorSatuanKerja_LogController")();
@@ -49,11 +48,6 @@ app.use('/api/publikasi',publikasiController);
 app.use('/api/login',loginController);
 app.use('/api/konkin',konkinController);
 
-var options = {
-  key: fs.readFileSync(__dirname+'/key.pem'),
-  cert: fs.readFileSync(__dirname+'/cert.pem')
-};
-
-var httpServer = https.createServer(options,app);
+var httpServer = http.createServer(app);
 httpServer.listen(port,hostname);
 
