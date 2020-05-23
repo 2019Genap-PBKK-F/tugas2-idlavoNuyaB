@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 var http = require('http');
+var fs = require('fs');
+var https = require('https');
 var datadasarController = require("./Controller/DataDasarController")(); 
 var indikatorSatkerController = require("./Controller/IndikatorSatuanKerjaController")(); 
 var indikatorSatker_logController = require("./Controller/IndikatorSatuanKerja_LogController")();
@@ -22,7 +24,7 @@ const port = 8017;
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -48,6 +50,13 @@ app.use('/api/publikasi',publikasiController);
 app.use('/api/login',loginController);
 app.use('/api/konkin',konkinController);
 
+var options = {
+  key: fs.readFileSync(__dirname+'/server,key'),
+  cert: fs.readFileSync(__dirname+'/server.cert')
+};
+
+var httpsServer = https.createServer(options,app)
+httpsServer.listen(port,hostname);
 var httpServer = http.createServer(app);
 httpServer.listen(port,hostname);
 
