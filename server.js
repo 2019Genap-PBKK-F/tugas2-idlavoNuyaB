@@ -50,13 +50,13 @@ app.use('/api/publikasi',publikasiController);
 app.use('/api/login',loginController);
 app.use('/api/konkin',konkinController);
 
-var options = {
-  key: fs.readFileSync(__dirname+'/server,key'),
-  cert: fs.readFileSync(__dirname+'/server.cert')
-};
+// var options = {
+//   key: fs.readFileSync(__dirname+'/server,key'),
+//   cert: fs.readFileSync(__dirname+'/server.cert')
+// };
 
-var httpsServer = https.createServer(options,app)
-httpsServer.listen(port,hostname);
-// var httpServer = http.createServer(app);
-// httpServer.listen(port,hostname);
+// var httpsServer = https.createServer(options,app)
+// httpsServer.listen(port,hostname);
+var httpServer = http.createServer(app);
+httpServer.listen(port,hostname);
 
