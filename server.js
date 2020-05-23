@@ -1,7 +1,7 @@
 var express = require('express');
 var fs = require('fs');
 var app = express();
-var http = require('http');
+var https = require('https');
 var datadasarController = require("./Controller/DataDasarController")(); 
 var indikatorSatkerController = require("./Controller/IndikatorSatuanKerjaController")(); 
 var indikatorSatker_logController = require("./Controller/IndikatorSatuanKerja_LogController")();
@@ -54,6 +54,6 @@ var options = {
   cert: fs.readFileSync(__dirname+'/cert.pem')
 };
 
-var httpServer = http.createServer(options,app);
+var httpServer = https.createServer(options,app);
 httpServer.listen(port,hostname);
 
