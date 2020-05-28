@@ -9,7 +9,7 @@ var executeQuery = function(res,query,cek,parameters){
     if (err) console.log(err);
     // create Request object
     var request = new sql.Request();
-    if(cek == 0){
+    if(cek == 2){
       parameters.forEach(function(p){
         request.input(p.name,p.sqltype,p.value);
       });
