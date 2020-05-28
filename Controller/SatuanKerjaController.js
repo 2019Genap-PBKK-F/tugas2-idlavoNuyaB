@@ -42,7 +42,7 @@ var routes = function(){
     var parameters;
     executeQuery(res,query,cek,parameters);
   });
-  router.route('/namadropdown').get(function(req,res){
+  router.route('/namadropdown/:id').get(function(req,res){
     var query = "Select id, nama as name, id_induk_satker from SatuanKerja where nama like 'Departemen%' or nama like 'Fakultas%' Order By nama ASC";
     var cek = 0;
     var parameters;
