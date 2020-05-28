@@ -34,17 +34,14 @@ var routes = function(){
     var query = 'Select * from konkin order by Satuan Desc, apk asc';
     executeQuery(res,query,0,0);
   });
-  router.route('/tabel/:id').get(function(req,res){
+  router.route('/:id').get(function(req,res){
     var model = [
       { name: 'id_satker', sqltype: sql.UniqueIdentifier, value: req.params.id }
     ]
-    var query = "select row_number() over (order by apk.aspek) as num, apk.aspek as Aspek, apk.komponen_aspek as Komponen, mi.nama as Indikator, " +
-                "isk.bobot as Bobot, isk.target as Target, isk.capaian as Capaian from Indikator_SatuanKerja isk " +
-                "Inner Join MasterIndikator mi on isk.id_master = mi.id inner join Aspek apk on mi.id_aspek = apk.id " +
-                "inner join SatuanKerja sk on isk.id_satker = sk.id where sk.id = @id_satker" 
-                
-    executeQuery(res, query, 1, model)
-  })
+    var query = 'Select row_number() over (order by aspek) as num, Aspek,[Komponen Aspek],[Indikator Kinerja]' +
+                ',Bobot,Target,Capaian from konkin';
+    executeQuery(res,query,0,model);
+  });
   return router
 };
 module.exports = routes; 
