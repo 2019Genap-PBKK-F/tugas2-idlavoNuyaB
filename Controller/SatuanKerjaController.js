@@ -49,7 +49,10 @@ var routes = function(){
     executeQuery(res,query,cek,parameters);
   });
   router.route('/namadropdown/:id').get(function(req,res){
-    var query = "Select id, nama as name, id_induk_satker from SatuanKerja where nama like 'Departemen%' or nama like 'Fakultas%' Order By nama ASC where id = " + req.body.id;
+    var model = [
+      { name: 'id', sqltype: sql.UniqueIdentifier, value: req.params.id }
+    ]
+    var query = "Select id, nama as name, id_induk_satker from SatuanKerja where (nama like 'Departemen%' or nama like 'Fakultas%') and (id = @id or id_induk_satker = @id) Order By nama ASC";
     var cek = 0;
     var parameters;
     executeQuery(res,query,cek,parameters);
