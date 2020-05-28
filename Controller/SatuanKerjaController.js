@@ -30,26 +30,6 @@ var executeQuery = function(res,query,cek,parameters){
 }
 
 var routes = function(){
-  router.route('/:id').get(function (req,res){
-    var model = [
-      { name: 'id_satker', sqltype: sql.UniqueIdentifier, value: req.params.id }
-    ]
-    var query = "select row_number() over (order by apk.aspek) as num, apk.aspek as Aspek, apk.komponen_aspek as Komponen, mi.nama as Indikator, " +
-                "isk.bobot as Bobot, isk.target as Target, isk.capaian as Capaian from Indikator_SatuanKerja isk " +
-                "Inner Join MasterIndikator mi on isk.id_master = mi.id inner join Aspek apk on mi.id_aspek = apk.id " +
-                "inner join SatuanKerja sk on isk.id_satker = sk.id where sk.id = @id_satker" 
-                
-    executeQuery(res, query, 1, model)
-  });
-  router.route('/dropdown/:id').get(function (req,res){
-    var model = [
-      { name: 'id', sqltype: sql.UniqueIdentifier, value: req.params.id }
-    ]
-    var query = "select id, nama from SatuanKerja where (id = @id or id_induk_satker = @id) " +
-                "and (nama like 'Departemen%' or nama like 'Fakultas%') order by nama" 
-                
-    executeQuery(res, query, 1, model)
-  });
   router.route('/').get(function(req,res){
     var query = 'Select id,nama,email,level_unit,id_jns_satker,id_induk_satker,create_date,last_update,expired_date from SatuanKerja';
     var cek = 0;
@@ -67,6 +47,15 @@ var routes = function(){
     var cek = 0;
     var parameters;
     executeQuery(res,query,cek,parameters);
+  });
+  router.route('/dropdown/:id').get(function (req,res){
+    var model = [
+      { name: 'id', sqltype: sql.UniqueIdentifier, value: req.params.id }
+    ]
+    var query = "select id, nama from SatuanKerja where (id = @id or id_induk_satker = @id) " +
+                "and (nama like 'Departemen%' or nama like 'Fakultas%') order by nama" 
+                
+    executeQuery(res, query, 1, model)
   });
   router.route('/').post(function(req,res){
     var cek = 1;
