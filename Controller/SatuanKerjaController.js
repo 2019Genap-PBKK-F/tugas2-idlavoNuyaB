@@ -53,9 +53,8 @@ var routes = function(){
       { name: 'id', sqltype: sql.UniqueIdentifier, value: req.params.id }
     ]
     var query = "Select id, nama as name, id_induk_satker from SatuanKerja where (nama like 'Departemen%' or nama like 'Fakultas%') and (id = @id or id_induk_satker = @id) Order By nama ASC";
-    var cek = 0;
-    var parameters;
-    executeQuery(res,query,cek,parameters);
+    var cek = 3;
+    executeQuery(res,query,cek,model);
   });
   router.route('/').post(function(req,res){
     var cek = 1;

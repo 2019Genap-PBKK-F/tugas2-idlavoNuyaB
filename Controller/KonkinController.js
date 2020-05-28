@@ -40,7 +40,7 @@ var routes = function(){
     ]
     var query = 'Select row_number() over (order by Aspek) as num, Aspek,[Komponen Aspek],[Indikator Kinerja]' +
                 ',Bobot,Target,Capaian from konkin where ID = @id_satker';
-    executeQuery(res,query,0,model);
+    executeQuery(res,query,1,model);
   });
   return router
 };
