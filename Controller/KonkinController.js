@@ -9,7 +9,7 @@ var executeQuery = function(res,query,cek,parameters){
     if (err) console.log(err);
     // create Request object
     var request = new sql.Request();
-    if(cek == 1){
+    if(cek == 0){
       parameters.forEach(function(p){
         request.input(p.name,p.sqltype,p.value);
       });
@@ -40,7 +40,7 @@ var routes = function(){
     ]
     var query = 'Select row_number() over (order by Aspek) as num, Aspek,[Komponen Aspek],[Indikator Kinerja]' +
                 ',Bobot,Target,Capaian from konkin where ID = @id_satker';
-    executeQuery(res,query,1,model);
+    executeQuery(res,query,0,model);
   });
   return router
 };
