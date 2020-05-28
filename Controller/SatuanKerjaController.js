@@ -48,15 +48,15 @@ var routes = function(){
     var parameters;
     executeQuery(res,query,cek,parameters);
   });
-  router.route('/dropdown/:id').get(function (req,res){
-    var model = [
-      { name: 'id', sqltype: sql.UniqueIdentifier, value: req.params.id }
-    ]
-    var query = "select id, nama from SatuanKerja where (id = @id or id_induk_satker = @id) " +
-                "and (nama like 'Departemen%' or nama like 'Fakultas%') order by nama" 
+  // router.route('/dropdown/:id').get(function (req,res){
+  //   var model = [
+  //     { name: 'id', sqltype: sql.UniqueIdentifier, value: req.params.id }
+  //   ]
+  //   var query = "select id, nama from SatuanKerja where (id = @id or id_induk_satker = @id) " +
+  //               "and (nama like 'Departemen%' or nama like 'Fakultas%') order by nama" 
                 
-    executeQuery(res, query, 1, model)
-  });
+  //   executeQuery(res, query, 1, model)
+  // });
   router.route('/').post(function(req,res){
     var cek = 1;
     var tgl = new Date();
