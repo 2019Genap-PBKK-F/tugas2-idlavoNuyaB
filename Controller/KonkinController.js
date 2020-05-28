@@ -38,7 +38,7 @@ var routes = function(){
     var model = [
       { name: 'id_satker', sqltype: sql.UniqueIdentifier, value: req.params.id }
     ]
-    var query = 'Select row_number() over (order by aspek) as num, Aspek,[Komponen Aspek],[Indikator Kinerja]' +
+    var query = 'Select row_number() over (order by Aspek) as num, Aspek,[Komponen Aspek],[Indikator Kinerja]' +
                 ',Bobot,Target,Capaian from konkin';
     executeQuery(res,query,0,model);
   });
