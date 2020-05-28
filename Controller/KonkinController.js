@@ -39,7 +39,7 @@ var routes = function(){
       { name: 'id_satker', sqltype: sql.UniqueIdentifier, value: req.params.id }
     ]
     var query = 'Select row_number() over (order by Aspek) as num, Aspek,[Komponen Aspek],[Indikator Kinerja]' +
-                ',Bobot,Target,Capaian from konkin';
+                ',Bobot,Target,Capaian from konkin where ID = @id_satker';
     executeQuery(res,query,0,model);
   });
   return router
